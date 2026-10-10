@@ -18,9 +18,16 @@ export function CaseList() {
               {String(index + 1).padStart(2, "0")}
             </span>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
-                {study.eyebrow}
-              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
+                  {study.eyebrow}
+                </p>
+                {study.draftStatus === "coming-soon" ? (
+                  <span className="rounded-[var(--radius-pill)] border border-dashed border-[var(--ink-soft)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--ink-soft)]">
+                    Coming soon
+                  </span>
+                ) : null}
+              </div>
               <h2 className="mt-1 font-[family-name:var(--font-fredoka)] text-2xl font-semibold tracking-tight sm:text-3xl">
                 {study.title}
               </h2>
@@ -39,7 +46,7 @@ export function CaseList() {
             <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end sm:text-right">
               <p className="text-sm font-medium text-[var(--ink)]">{study.outcomeTeaser}</p>
               <span className="inline-flex h-11 items-center rounded-[1rem] bg-[var(--ink)] px-4 font-[family-name:var(--font-fredoka)] text-sm font-semibold text-[var(--bg-elevated)] transition-transform duration-200 group-hover:translate-x-1">
-                Open case ↵
+                {study.draftStatus === "draft" ? "Open case ↵" : "Preview ↵"}
               </span>
             </div>
           </Link>

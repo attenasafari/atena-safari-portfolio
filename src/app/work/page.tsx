@@ -12,7 +12,7 @@ export default function WorkPage() {
     <>
       <PageHeader
         title="Selected work"
-        description="Case studies first — narrative skeletons ready for real process, decisions, and verified outcomes."
+        description="Case studies first. Achareh customer home is drafted from discovery; My Desk and 780.ir stay coming soon until Atena answers."
       />
       <CaseList />
     </>

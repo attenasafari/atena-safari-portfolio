@@ -28,7 +28,7 @@ export function Hero() {
         icon={
           <div className="flex w-full items-end justify-between gap-2 text-[var(--ink)]">
             <span className="font-[family-name:var(--font-fredoka)] text-xs font-semibold opacity-80">
-              Desk
+              Home
             </span>
             <span className="rounded-lg bg-white/85 px-2 py-1 text-[10px] font-bold">
               +80%
