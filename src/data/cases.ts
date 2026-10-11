@@ -12,6 +12,17 @@ export type CaseMetric = {
   note?: string;
 };
 
+export type CaseVisual = {
+  src: string;
+  label: string;
+  state?: string;
+  caption: string;
+  alt: string;
+  badgeColor: string;
+  width: number;
+  height: number;
+};
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -27,6 +38,8 @@ export type CaseStudy = {
   draftStatus: "draft" | "coming-soon";
   outcomeTeaser: string;
   metrics?: CaseMetric[];
+  visuals?: CaseVisual[];
+  visualsNote?: string;
   sections: CaseSection[];
 };
 
@@ -39,9 +52,9 @@ export const caseStudies: CaseStudy[] = [
     role: "Senior product designer",
     timeframe: "2023 – Present",
     summary:
-      "Redesigning Achareh’s customer home so people could find orders, set the right city, and get from search into add-order without hunting.",
+      "Redesigning Achareh’s customer home so people could find orders, set the right city, and get from search into add-order without hunting. Now live in production.",
     accent: "var(--accent-sky)",
-    tags: ["Marketplace", "Home redesign", "Conversion"],
+    tags: ["Marketplace", "Home redesign", "Live"],
     featured: true,
     draftStatus: "draft",
     outcomeTeaser: "Search usage +80% · bounce −10%",
@@ -65,6 +78,43 @@ export const caseStudies: CaseStudy[] = [
         label: "Order management",
         value: "From first page",
         note: "Qualitative outcome she reported",
+      },
+    ],
+    visualsNote:
+      "Live product screens from Achareh’s customer home. Before = prior home; After frames = current production UI (Atena confirmed the redesign is live).",
+    visuals: [
+      {
+        src: "/cases/achareh-customer-home/before-home.png",
+        label: "Before",
+        state: "Prior home",
+        caption:
+          "Compact top search and city (“”); category grid and promo carousel. No bottom nav, no My Orders entry, and no order-status UI on home.",
+        alt: "Achareh customer home before redesign — compact search bar and category grid without bottom navigation",
+        badgeColor: "var(--accent-amber)",
+        width: 446,
+        height: 918,
+      },
+      {
+        src: "/cases/achareh-customer-home/after-home-categories.png",
+        label: "After — home",
+        state: "Live now",
+        caption:
+          "Teal hero with city + search as the primary control; category grid below; bottom nav including My Orders so orders are findable from the first page.",
+        alt: "Achareh customer home after redesign — teal hero with city and search, categories, and My Orders in bottom nav",
+        badgeColor: "var(--accent-mint)",
+        width: 750,
+        height: 2366,
+      },
+      {
+        src: "/cases/achareh-customer-home/after-order-status-modal.png",
+        label: "After — order modal",
+        state: "Live now",
+        caption:
+          "Order status on home — recent orders with progress, actions (e.g. rate the expert), and pro details, without leaving the first page.",
+        alt: "Achareh customer home order status modal showing completed luxury cleaning order and expert rating prompt",
+        badgeColor: "var(--accent-sky)",
+        width: 375,
+        height: 801,
       },
     ],
     sections: [
@@ -94,12 +144,12 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "decisions",
         title: "Decisions",
-        body: "Four shipped directions she described — framed as the product changes that answered the problem. Deeper tradeoffs (for example, modal vs a full orders page) are still TBD.",
+        body: "Four shipped directions she described — visible in the live after screens. Deeper tradeoffs (for example, modal vs a full orders page) are still TBD.",
         bullets: [
-          "Button navigation, including a clear My Order entry point.",
-          "Ask for city first — services and pricing differ by city, and some cities offer different services.",
-          "Put search as the main hero action so people move into add-order faster.",
-          "Current order status modal showing the last 3 orders with status, main actions, pro data, and phone number.",
+          "Button navigation, including My Orders in the bottom nav.",
+          "Ask for city first — services and pricing differ by city; city sits with search in the hero (“Teh.”).",
+          "Search as the main hero action so people move into add-order faster.",
+          "Current order status on home (modal / stacked cards) for recent orders — status, main actions, pro data.",
         ],
         status: "ready",
       },
@@ -118,7 +168,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "reflection",
         title: "Reflection",
-        body: "Coming soon — what she’d revisit, and what she wants viewers to notice, once process and assets are in.",
+        body: "Coming soon — what she’d revisit, and what she wants viewers to notice, once process notes are in.",
         status: "placeholder",
       },
     ],
