@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CaseVisuals } from "@/components/CaseVisuals";
 import { caseStudies, getCaseBySlug } from "@/data/cases";
 
 type PageProps = {
@@ -30,6 +32,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const prev = index > 0 ? caseStudies[index - 1] : null;
   const next = index < caseStudies.length - 1 ? caseStudies[index + 1] : null;
   const isDraft = study.draftStatus === "draft";
+  const heroVisual = study.visuals?.[1] ?? study.visuals?.[0];
 
   return (
     <article className="mx-auto w-full max-w-[var(--content-max)] px-[var(--page-pad)] pb-20 pt-6">
@@ -51,7 +54,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
             </span>
           ) : (
             <span className="rounded-[var(--radius-pill)] bg-[var(--accent-pink-soft)] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--ink)] shadow-[inset_0_0_0_1px_rgba(255,143,184,0.55)]">
-              Draft from discovery
+              Live · drafted from discovery
             </span>
           )}
         </div>
@@ -80,21 +83,64 @@ export default async function CaseStudyPage({ params }: PageProps) {
           ))}
         </dl>
 
-        <div
-          className="mt-8 overflow-hidden rounded-[1.75rem] border-[2.5px] border-[var(--ink)] shadow-[var(--shadow-soft)]"
-          style={{
-            background: `linear-gradient(135deg, ${study.accent}, color-mix(in srgb, ${study.accent} 35%, white))`,
-          }}
-        >
-          <div className="flex min-h-36 flex-col justify-end gap-3 p-6 sm:min-h-44 sm:flex-row sm:items-end sm:justify-between">
-            <span className="w-fit rounded-[1rem] bg-[var(--ink)] px-4 py-2 font-[family-name:var(--font-fredoka)] text-sm font-semibold text-white">
-              {isDraft ? "Visuals coming soon" : "Case coming soon"}
-            </span>
-            <span className="w-fit rounded-[1rem] bg-white/85 px-3 py-2 text-sm font-semibold text-[var(--ink)]">
-              {study.outcomeTeaser}
-            </span>
+        {heroVisual ? (
+          <div className="mt-8 overflow-hidden rounded-[1.75rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] shadow-[var(--shadow-soft)]">
+            <div className="grid gap-0 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+              <div
+                className="flex flex-col justify-between gap-6 p-6 sm:p-8"
+                style={{
+                  background: `linear-gradient(135deg, ${study.accent}, color-mix(in srgb, ${study.accent} 40%, white))`,
+                }}
+              >
+                <div>
+                  <p className="font-[family-name:var(--font-fredoka)] text-sm font-semibold uppercase tracking-[0.14em] text-[var(--ink)]">
+                    {heroVisual.label}
+                  </p>
+                  <p className="mt-3 max-w-md text-lg font-medium leading-snug text-[var(--ink)]">
+                    {heroVisual.caption}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-[1rem] bg-[var(--ink)] px-4 py-2 font-[family-name:var(--font-fredoka)] text-sm font-semibold text-white">
+                    Live in production
+                  </span>
+                  <span className="rounded-[1rem] bg-white/90 px-3 py-2 text-sm font-semibold text-[var(--ink)]">
+                    {study.outcomeTeaser}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-end justify-center bg-[linear-gradient(180deg,#eef8f6,#f7f4ee)] px-6 pt-6">
+                <div className="w-full max-w-[14rem] overflow-hidden rounded-t-[1.35rem] border-x-2 border-t-2 border-[var(--ink)] bg-white shadow-[var(--shadow-key)]">
+                  <Image
+                    src={heroVisual.src}
+                    alt={heroVisual.alt}
+                    width={heroVisual.width}
+                    height={heroVisual.height}
+                    className="h-auto w-full"
+                    sizes="224px"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div
+            className="mt-8 overflow-hidden rounded-[1.75rem] border-[2.5px] border-[var(--ink)] shadow-[var(--shadow-soft)]"
+            style={{
+              background: `linear-gradient(135deg, ${study.accent}, color-mix(in srgb, ${study.accent} 35%, white))`,
+            }}
+          >
+            <div className="flex min-h-36 flex-col justify-end gap-3 p-6 sm:min-h-44 sm:flex-row sm:items-end sm:justify-between">
+              <span className="w-fit rounded-[1rem] bg-[var(--ink)] px-4 py-2 font-[family-name:var(--font-fredoka)] text-sm font-semibold text-white">
+                {isDraft ? "Visuals coming soon" : "Case coming soon"}
+              </span>
+              <span className="w-fit rounded-[1rem] bg-white/85 px-3 py-2 text-sm font-semibold text-[var(--ink)]">
+                {study.outcomeTeaser}
+              </span>
+            </div>
+          </div>
+        )}
       </header>
 
       {study.metrics && study.metrics.length > 0 ? (
@@ -124,6 +170,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
             ))}
           </ul>
         </section>
+      ) : null}
+
+      {study.visuals && study.visuals.length > 0 ? (
+        <CaseVisuals visuals={study.visuals} caption={study.visualsNote} />
       ) : null}
 
       <div className="mt-14 grid gap-6 lg:grid-cols-[1fr_16rem]">
@@ -172,6 +222,16 @@ export default async function CaseStudyPage({ params }: PageProps) {
             In this case
           </p>
           <ol className="mt-4 space-y-2 text-sm">
+            {study.visuals && study.visuals.length > 0 ? (
+              <li>
+                <a
+                  href="#visuals"
+                  className="text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
+                >
+                  Visuals
+                </a>
+              </li>
+            ) : null}
             {study.sections.map((section) => (
               <li key={section.id}>
                 <a
@@ -186,7 +246,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </ol>
           <p className="mt-6 text-xs leading-relaxed text-[var(--ink-soft)]">
             {isDraft
-              ? "Drafted from Atena’s discovery answers. Process, reflection, visuals, and metric definitions still open."
+              ? "Drafted from Atena’s discovery answers and live screens. Process, reflection, and metric definitions still open."
               : "Placeholder until discovery answers land — no invented metrics."}
           </p>
         </aside>
