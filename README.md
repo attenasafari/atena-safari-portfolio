@@ -30,7 +30,7 @@ npm start
 | `/about` | Bio, experience, skills |
 | `/contact` | Email, LinkedIn, ADPList, phone |
 
-Stub cases: Achareh My Desk (featured), Achareh customer home, 780.ir fintech suite.
+Published case: Achareh customer home. Work page is ready for more cases later.
 
 ## Design system
 
