@@ -30,7 +30,7 @@ npm start
 | `/about` | Bio, experience, skills |
 | `/contact` | Email, LinkedIn, ADPList, phone |
 
-Published case: Achareh customer home. Work page is ready for more cases later.
+Cases: Achareh customer home (live screens); moving price & checkout (goals draft, metrics TBD).
 
 ## Design system
 
