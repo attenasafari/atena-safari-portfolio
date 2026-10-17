@@ -4,7 +4,8 @@ import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Selected case studies from Atena Safari — starting with Achareh customer home.",
+  description:
+    "Selected case studies from Atena Safari — Achareh customer home and moving price/checkout.",
 };
 
 export default function WorkPage() {
@@ -12,7 +13,7 @@ export default function WorkPage() {
     <>
       <PageHeader
         title="Selected work"
-        description="Case studies first. Achareh customer home is live; more stories will land here as Atena drafts them."
+        description="Case studies first. Achareh customer home is live; moving price & checkout is drafted with goals — metrics still TBD."
       />
       <CaseList />
     </>

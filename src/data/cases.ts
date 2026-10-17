@@ -172,7 +172,71 @@ export const caseStudies: CaseStudy[] = [
         status: "placeholder",
       },
     ],
-  }
+  },
+  {
+    slug: "moving-price-checkout",
+    title: "Moving: price calculator & checkout",
+    eyebrow: "Achareh · Moving service",
+    company: "Achareh",
+    role: "TBD — confirm with Atena",
+    timeframe: "TBD",
+    summary:
+      "Goals for Achareh’s moving service (اسباب‌کشی): raise adoption of the price-calculated feature and cut checkout abandonment. Company assumed Achareh moving — confirm if another product. Numbers still TBD.",
+    accent: "var(--accent-coral)",
+    tags: ["Moving", "Pricing", "Checkout"],
+    draftStatus: "draft",
+    outcomeTeaser: "Adoption ↑ · abandonment ↓ — numbers TBD",
+    metrics: [
+      {
+        label: "Price-calculated feature adoption",
+        value: "↑ TBD",
+        note: "Goal framing — no measured number yet",
+      },
+      {
+        label: "Checkout abandonment",
+        value: "↓ TBD",
+        note: "Goal framing — baseline and post delta TBD",
+      },
+    ],
+    sections: [
+      {
+        id: "problem",
+        title: "Problem",
+        body: "On the moving (اسباب‌کشی) flow, the price-calculated experience was under-adopted and too many people left during checkout. Exact friction points, prior UI, and analytics proof are still TBD with Atena.",
+        bullets: [
+          "Price-calculated feature adoption too low (details TBD).",
+          "Checkout abandonment too high (step / rate TBD).",
+        ],
+        status: "ready",
+      },
+      {
+        id: "role",
+        title: "Role",
+        body: "Role, collaborators, and decision rights for this moving work are not captured yet. Resume notes Metabase-backed checkout drop-off work at Achareh in general — whether this moving case is that same effort is TBD.",
+        status: "placeholder",
+      },
+      {
+        id: "what-changed",
+        title: "What changed",
+        body: "Shipped changes TBD. Placeholder for the redesign directions once Atena describes what moved in pricing, calculator UX, and checkout.",
+        bullets: [
+          "Price calculator / price-calculated feature — changes TBD.",
+          "Checkout flow — changes TBD.",
+        ],
+        status: "placeholder",
+      },
+      {
+        id: "outcome",
+        title: "Outcomes",
+        body: "Stated goals only — do not treat as measured results until Atena provides numbers, definitions, and windows.",
+        bullets: [
+          "Increase price-calculated feature adoption — number TBD",
+          "Reduce checkout abandonment rate — number TBD",
+        ],
+        status: "placeholder",
+      },
+    ],
+  },
 ];
 
 export function getCaseBySlug(slug: string): CaseStudy | undefined {

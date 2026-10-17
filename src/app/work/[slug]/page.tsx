@@ -52,9 +52,13 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <span className="rounded-[var(--radius-pill)] border border-dashed border-[var(--ink-soft)] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--ink-soft)]">
               Coming soon
             </span>
-          ) : (
+          ) : study.visuals && study.visuals.length > 0 ? (
             <span className="rounded-[var(--radius-pill)] bg-[var(--accent-pink-soft)] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--ink)] shadow-[inset_0_0_0_1px_rgba(255,143,184,0.55)]">
               Live · drafted from discovery
+            </span>
+          ) : (
+            <span className="rounded-[var(--radius-pill)] border border-dashed border-[var(--ink)] bg-[var(--bg-elevated)] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--ink)]">
+              Draft · metrics TBD
             </span>
           )}
         </div>
