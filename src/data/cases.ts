@@ -176,12 +176,12 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "moving-price-checkout",
     title: "Moving: price calculator & checkout",
-    eyebrow: "Achareh · Moving service",
-    company: "Achareh",
+    eyebrow: "Moving service · company TBD",
+    company: "Achareh moving (assumed — TBD)",
     role: "TBD — confirm with Atena",
     timeframe: "TBD",
     summary:
-      "Goals for Achareh’s moving service (اسباب‌کشی): raise adoption of the price-calculated feature and cut checkout abandonment. Company assumed Achareh moving — confirm if another product. Numbers still TBD.",
+      "Goals for a moving service (اسباب‌کشی): raise adoption of the price-calculated feature and cut checkout abandonment. Labeled Achareh moving pending confirmation. Numbers still TBD.",
     accent: "var(--accent-coral)",
     tags: ["Moving", "Pricing", "Checkout"],
     draftStatus: "draft",
@@ -202,7 +202,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "problem",
         title: "Problem",
-        body: "On the moving (اسباب‌کشی) flow, the price-calculated experience was under-adopted and too many people left during checkout. Exact friction points, prior UI, and analytics proof are still TBD with Atena.",
+        body: "On the moving (اسباب‌کشی) flow, the price-calculated experience was under-adopted and too many people left during checkout. Exact friction points, prior UI, company/product, and analytics proof are still TBD with Atena.",
         bullets: [
           "Price-calculated feature adoption too low (details TBD).",
           "Checkout abandonment too high (step / rate TBD).",
