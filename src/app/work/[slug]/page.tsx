@@ -10,6 +10,7 @@ import {
   getChildCases,
   getSiblingCases,
 } from "@/data/cases";
+import { withBasePath } from "@/lib/base-path";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -18,6 +19,9 @@ type PageProps = {
 export function generateStaticParams() {
   return caseStudies.map((c) => ({ slug: c.slug }));
 }
+
+// Static export cannot render unknown slugs on demand.
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -124,7 +128,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
               <div className="flex items-end justify-center bg-[linear-gradient(180deg,#eef8f6,#f7f4ee)] px-6 pt-6">
                 <div className="w-full max-w-[14rem] overflow-hidden rounded-t-[1.35rem] border-x-2 border-t-2 border-[var(--ink)] bg-white shadow-[var(--shadow-key)]">
                   <Image
-                    src={heroVisual.src}
+                    src={withBasePath(heroVisual.src)}
                     alt={heroVisual.alt}
                     width={heroVisual.width}
                     height={heroVisual.height}
