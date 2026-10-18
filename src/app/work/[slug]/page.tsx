@@ -180,11 +180,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
         <CaseVisuals
           visuals={study.visuals}
           caption={study.visualsNote}
-          title={
-            study.slug === "achareh-customer-home"
-              ? "Before → after → order status"
-              : "Before → after"
-          }
+          title={study.visualsTitle ?? "Visuals"}
         />
       ) : null}
 
