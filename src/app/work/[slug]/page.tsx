@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaseVisuals } from "@/components/CaseVisuals";
+import { MessagingTone } from "@/components/MessagingTone";
 import { caseStudies, getCaseBySlug } from "@/data/cases";
 
 type PageProps = {
@@ -227,6 +228,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
         />
       ) : null}
 
+      {study.messaging ? <MessagingTone chapter={study.messaging} /> : null}
+
       <div className="mt-14 grid gap-6 lg:grid-cols-[1fr_16rem]">
         <div className="space-y-6">
           {study.sections.map((section) => (
@@ -280,6 +283,16 @@ export default async function CaseStudyPage({ params }: PageProps) {
                   className="text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
                 >
                   Visuals
+                </a>
+              </li>
+            ) : null}
+            {study.messaging ? (
+              <li>
+                <a
+                  href="#messaging-tone"
+                  className="text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
+                >
+                  Messaging & tone
                 </a>
               </li>
             ) : null}
