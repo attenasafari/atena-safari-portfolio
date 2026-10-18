@@ -177,7 +177,15 @@ export default async function CaseStudyPage({ params }: PageProps) {
       ) : null}
 
       {study.visuals && study.visuals.length > 0 ? (
-        <CaseVisuals visuals={study.visuals} caption={study.visualsNote} />
+        <CaseVisuals
+          visuals={study.visuals}
+          caption={study.visualsNote}
+          title={
+            study.slug === "achareh-customer-home"
+              ? "Before → after → order status"
+              : "Before → after"
+          }
+        />
       ) : null}
 
       <div className="mt-14 grid gap-6 lg:grid-cols-[1fr_16rem]">

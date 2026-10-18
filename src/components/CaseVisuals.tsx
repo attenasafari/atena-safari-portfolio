@@ -4,9 +4,21 @@ import type { CaseVisual } from "@/data/cases";
 type CaseVisualsProps = {
   visuals: CaseVisual[];
   caption?: string;
+  title?: string;
 };
 
-export function CaseVisuals({ visuals, caption }: CaseVisualsProps) {
+export function CaseVisuals({
+  visuals,
+  caption,
+  title = "Before → after",
+}: CaseVisualsProps) {
+  const cols =
+    visuals.length >= 3
+      ? "md:grid-cols-3"
+      : visuals.length === 2
+        ? "md:grid-cols-2"
+        : "md:grid-cols-1";
+
   return (
     <section id="visuals" aria-labelledby="visuals-heading" className="mt-10">
       <div className="flex flex-wrap items-end justify-between gap-3">
@@ -15,16 +27,15 @@ export function CaseVisuals({ visuals, caption }: CaseVisualsProps) {
             id="visuals-heading"
             className="font-[family-name:var(--font-fredoka)] text-xl font-semibold sm:text-2xl"
           >
-            Before → after → order status
+            {title}
           </h2>
           <p className="mt-1 max-w-2xl text-sm text-[var(--ink-muted)]">
-            {caption ??
-              "Live product screens. Before = prior customer home; After = current production UI (Atena confirmed)."}
+            {caption ?? "Product screens from discovery."}
           </p>
         </div>
       </div>
 
-      <ol className="mt-6 grid gap-5 md:grid-cols-3">
+      <ol className={`mt-6 grid gap-5 ${cols}`}>
         {visuals.map((visual, index) => (
           <li
             key={visual.src}
