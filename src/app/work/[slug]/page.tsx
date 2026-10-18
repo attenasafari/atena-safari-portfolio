@@ -173,6 +173,49 @@ export default async function CaseStudyPage({ params }: PageProps) {
               </li>
             ))}
           </ul>
+
+          {study.sampleAdoption ? (
+            <div className="mt-6 overflow-hidden rounded-[1.5rem] border-[2.5px] border-dashed border-[var(--ink)] bg-[var(--bg-elevated)] shadow-[var(--shadow-soft)]">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-dashed border-[var(--ink)] px-4 py-3">
+                <p className="font-[family-name:var(--font-fredoka)] text-base font-semibold">
+                  Feature adoption breakdown
+                </p>
+                <span className="rounded-[var(--radius-pill)] bg-[var(--accent-amber)] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--ink)]">
+                  Sample / illustrative
+                </span>
+              </div>
+              <p className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--ink-muted)]">
+                {study.sampleAdoption.caption}
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[20rem] text-left text-sm">
+                  <thead className="bg-black/[0.03] text-xs uppercase tracking-[0.1em] text-[var(--ink-soft)]">
+                    <tr>
+                      <th className="px-4 py-3 font-semibold">Feature</th>
+                      <th className="px-4 py-3 font-semibold">Before (sample)</th>
+                      <th className="px-4 py-3 font-semibold">After (sample)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {study.sampleAdoption.rows.map((row) => (
+                      <tr
+                        key={row.feature}
+                        className="border-t border-[var(--line)] text-[var(--ink-muted)]"
+                      >
+                        <td className="px-4 py-2.5 font-medium text-[var(--ink)]">
+                          {row.feature}
+                        </td>
+                        <td className="px-4 py-2.5">{row.before}</td>
+                        <td className="px-4 py-2.5 font-[family-name:var(--font-fredoka)] font-semibold text-[var(--ink)]">
+                          {row.after}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : null}
         </section>
       ) : null}
 
