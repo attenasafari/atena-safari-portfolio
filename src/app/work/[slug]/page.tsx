@@ -4,7 +4,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaseVisuals } from "@/components/CaseVisuals";
 import { MessagingTone } from "@/components/MessagingTone";
-import { caseStudies, getCaseBySlug } from "@/data/cases";
+import {
+  caseStudies,
+  getCaseBySlug,
+  getChildCases,
+  getSiblingCases,
+} from "@/data/cases";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -29,40 +34,47 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const study = getCaseBySlug(slug);
   if (!study) notFound();
 
-  const index = caseStudies.findIndex((c) => c.slug === study.slug);
-  const prev = index > 0 ? caseStudies[index - 1] : null;
-  const next = index < caseStudies.length - 1 ? caseStudies[index + 1] : null;
-  const isDraft = study.draftStatus === "draft";
+  const children = study.kind === "overview" ? getChildCases(study.slug) : [];
+  const siblings = getSiblingCases(study);
+  const parent = study.parentSlug ? getCaseBySlug(study.parentSlug) : null;
   const heroVisual = study.visuals?.[1] ?? study.visuals?.[0];
+
+  const topLevel = caseStudies.filter((c) => !c.parentSlug);
+  const index = topLevel.findIndex((c) => c.slug === study.slug);
+  const prev =
+    !study.parentSlug && index > 0
+      ? topLevel[index - 1]
+      : parent
+        ? null
+        : null;
+  const next =
+    !study.parentSlug && index < topLevel.length - 1
+      ? topLevel[index + 1]
+      : null;
 
   return (
     <article className="mx-auto w-full max-w-[var(--content-max)] px-[var(--page-pad)] pb-20 pt-6">
-      <Link
-        href="/work"
-        className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
-      >
-        ← All work
-      </Link>
+      <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-[var(--ink-muted)]">
+        <Link href="/work" className="transition-colors hover:text-[var(--ink)]">
+          ← All work
+        </Link>
+        {parent ? (
+          <>
+            <span aria-hidden>/</span>
+            <Link
+              href={`/work/${parent.slug}`}
+              className="transition-colors hover:text-[var(--ink)]"
+            >
+              {parent.title}
+            </Link>
+          </>
+        ) : null}
+      </div>
 
       <header className="mt-6 max-w-3xl">
-        <div className="flex flex-wrap items-center gap-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
-            {study.eyebrow}
-          </p>
-          {study.draftStatus === "coming-soon" ? (
-            <span className="rounded-[var(--radius-pill)] border border-dashed border-[var(--ink-soft)] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--ink-soft)]">
-              Coming soon
-            </span>
-          ) : study.visuals && study.visuals.length > 0 ? (
-            <span className="rounded-[var(--radius-pill)] bg-[var(--accent-pink-soft)] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--ink)] shadow-[inset_0_0_0_1px_rgba(255,143,184,0.55)]">
-              Live · drafted from discovery
-            </span>
-          ) : (
-            <span className="rounded-[var(--radius-pill)] border border-dashed border-[var(--ink)] bg-[var(--bg-elevated)] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--ink)]">
-              Draft · metrics TBD
-            </span>
-          )}
-        </div>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
+          {study.eyebrow}
+        </p>
         <h1 className="mt-3 font-[family-name:var(--font-fredoka)] text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
           {study.title}
         </h1>
@@ -105,14 +117,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     {heroVisual.caption}
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  <span className="rounded-[1rem] bg-[var(--ink)] px-4 py-2 font-[family-name:var(--font-fredoka)] text-sm font-semibold text-white">
-                    Live in production
-                  </span>
-                  <span className="rounded-[1rem] bg-white/90 px-3 py-2 text-sm font-semibold text-[var(--ink)]">
-                    {study.outcomeTeaser}
-                  </span>
-                </div>
+                <span className="w-fit rounded-[1rem] bg-white/90 px-3 py-2 text-sm font-semibold text-[var(--ink)]">
+                  {study.outcomeTeaser}
+                </span>
               </div>
               <div className="flex items-end justify-center bg-[linear-gradient(180deg,#eef8f6,#f7f4ee)] px-6 pt-6">
                 <div className="w-full max-w-[14rem] overflow-hidden rounded-t-[1.35rem] border-x-2 border-t-2 border-[var(--ink)] bg-white shadow-[var(--shadow-key)]">
@@ -129,33 +136,28 @@ export default async function CaseStudyPage({ params }: PageProps) {
               </div>
             </div>
           </div>
-        ) : (
+        ) : study.kind === "overview" ? (
           <div
-            className="mt-8 overflow-hidden rounded-[1.75rem] border-[2.5px] border-[var(--ink)] shadow-[var(--shadow-soft)]"
+            className="mt-8 overflow-hidden rounded-[1.75rem] border-[2.5px] border-[var(--ink)] p-6 sm:p-8"
             style={{
-              background: `linear-gradient(135deg, ${study.accent}, color-mix(in srgb, ${study.accent} 35%, white))`,
+              background: `linear-gradient(135deg, ${study.accent}, color-mix(in srgb, ${study.accent} 40%, white))`,
             }}
           >
-            <div className="flex min-h-36 flex-col justify-end gap-3 p-6 sm:min-h-44 sm:flex-row sm:items-end sm:justify-between">
-              <span className="w-fit rounded-[1rem] bg-[var(--ink)] px-4 py-2 font-[family-name:var(--font-fredoka)] text-sm font-semibold text-white">
-                {isDraft ? "Visuals coming soon" : "Case coming soon"}
-              </span>
-              <span className="w-fit rounded-[1rem] bg-white/85 px-3 py-2 text-sm font-semibold text-[var(--ink)]">
-                {study.outcomeTeaser}
-              </span>
-            </div>
+            <p className="font-[family-name:var(--font-fredoka)] text-sm font-semibold uppercase tracking-[0.14em]">
+              Case series
+            </p>
+            <p className="mt-3 max-w-xl text-lg font-medium leading-snug">
+              {study.outcomeTeaser}
+            </p>
           </div>
-        )}
+        ) : null}
       </header>
 
       {study.metrics && study.metrics.length > 0 ? (
-        <section aria-label="Stated outcomes" className="mt-10">
+        <section aria-label="Outcomes" className="mt-10">
           <h2 className="font-[family-name:var(--font-fredoka)] text-xl font-semibold">
-            Outcomes she stated
+            Outcomes
           </h2>
-          <p className="mt-1 max-w-2xl text-sm text-[var(--ink-soft)]">
-            Verbatim from discovery — definitions and baselines still open.
-          </p>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {study.metrics.map((metric) => (
               <li
@@ -168,37 +170,31 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 <p className="mt-2 font-[family-name:var(--font-fredoka)] text-2xl font-semibold tracking-tight">
                   {metric.value}
                 </p>
-                {metric.note ? (
-                  <p className="mt-2 text-xs leading-snug text-[var(--ink-muted)]">{metric.note}</p>
-                ) : null}
               </li>
             ))}
           </ul>
 
-          {study.sampleAdoption ? (
-            <div className="mt-6 overflow-hidden rounded-[1.5rem] border-[2.5px] border-dashed border-[var(--ink)] bg-[var(--bg-elevated)] shadow-[var(--shadow-soft)]">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-dashed border-[var(--ink)] px-4 py-3">
+          {study.adoptionTable ? (
+            <div className="mt-6 overflow-hidden rounded-[1.5rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] shadow-[var(--shadow-soft)]">
+              <div className="border-b-2 border-[var(--ink)] px-4 py-3">
                 <p className="font-[family-name:var(--font-fredoka)] text-base font-semibold">
-                  Feature adoption breakdown
+                  Feature adoption
                 </p>
-                <span className="rounded-[var(--radius-pill)] bg-[var(--accent-amber)] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--ink)]">
-                  Sample / illustrative
-                </span>
+                <p className="mt-1 text-sm text-[var(--ink-muted)]">
+                  {study.adoptionTable.caption}
+                </p>
               </div>
-              <p className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--ink-muted)]">
-                {study.sampleAdoption.caption}
-              </p>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[20rem] text-left text-sm">
                   <thead className="bg-black/[0.03] text-xs uppercase tracking-[0.1em] text-[var(--ink-soft)]">
                     <tr>
                       <th className="px-4 py-3 font-semibold">Feature</th>
-                      <th className="px-4 py-3 font-semibold">Before (sample)</th>
-                      <th className="px-4 py-3 font-semibold">After (sample)</th>
+                      <th className="px-4 py-3 font-semibold">Before</th>
+                      <th className="px-4 py-3 font-semibold">After</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {study.sampleAdoption.rows.map((row) => (
+                    {study.adoptionTable.rows.map((row) => (
                       <tr
                         key={row.feature}
                         className="border-t border-[var(--line)] text-[var(--ink-muted)]"
@@ -230,6 +226,40 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
       {study.messaging ? <MessagingTone chapter={study.messaging} /> : null}
 
+      {children.length > 0 ? (
+        <section className="mt-12">
+          <h2 className="font-[family-name:var(--font-fredoka)] text-xl font-semibold sm:text-2xl">
+            Cases in this series
+          </h2>
+          <ul className="mt-5 grid gap-4 md:grid-cols-2">
+            {children.map((child) => (
+              <li key={child.slug}>
+                <Link
+                  href={`/work/${child.slug}`}
+                  className="group flex h-full flex-col rounded-[1.5rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] p-5 shadow-[var(--shadow-soft)] transition-transform hover:-translate-y-1"
+                >
+                  <span
+                    className="inline-flex w-fit rounded-[0.85rem] px-3 py-1 font-[family-name:var(--font-fredoka)] text-sm font-semibold"
+                    style={{ backgroundColor: child.accent }}
+                  >
+                    {child.title.split("—")[0].trim()}
+                  </span>
+                  <p className="mt-3 font-[family-name:var(--font-fredoka)] text-xl font-semibold">
+                    {child.title}
+                  </p>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--ink-muted)]">
+                    {child.summary}
+                  </p>
+                  <span className="mt-4 inline-flex text-sm font-semibold text-[var(--ink)] transition-transform group-hover:translate-x-1">
+                    Open case ↵
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <div className="mt-14 grid gap-6 lg:grid-cols-[1fr_16rem]">
         <div className="space-y-6">
           {study.sections.map((section) => (
@@ -238,16 +268,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
               id={section.id}
               className="rounded-[1.5rem] border-[2px] border-[var(--line)] bg-[var(--bg-elevated)]/80 p-6 sm:p-8"
             >
-              <div className="flex flex-wrap items-center gap-3">
-                <h2 className="font-[family-name:var(--font-fredoka)] text-2xl font-semibold">
-                  {section.title}
-                </h2>
-                {section.status === "placeholder" && (
-                  <span className="rounded-[var(--radius-pill)] border border-dashed border-[var(--ink-soft)] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--ink-soft)]">
-                    Coming soon
-                  </span>
-                )}
-              </div>
+              <h2 className="font-[family-name:var(--font-fredoka)] text-2xl font-semibold">
+                {section.title}
+              </h2>
               <p className="mt-3 max-w-3xl leading-relaxed text-[var(--ink-muted)]">
                 {section.body}
               </p>
@@ -278,10 +301,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <ol className="mt-4 space-y-2 text-sm">
             {study.visuals && study.visuals.length > 0 ? (
               <li>
-                <a
-                  href="#visuals"
-                  className="text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
-                >
+                <a href="#visuals" className="text-[var(--ink-muted)] hover:text-[var(--ink)]">
                   Visuals
                 </a>
               </li>
@@ -290,7 +310,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
               <li>
                 <a
                   href="#messaging-tone"
-                  className="text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
+                  className="text-[var(--ink-muted)] hover:text-[var(--ink)]"
                 >
                   Messaging & tone
                 </a>
@@ -300,55 +320,70 @@ export default async function CaseStudyPage({ params }: PageProps) {
               <li key={section.id}>
                 <a
                   href={`#${section.id}`}
-                  className="text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
+                  className="text-[var(--ink-muted)] hover:text-[var(--ink)]"
                 >
                   {section.title}
-                  {section.status === "placeholder" ? " · soon" : ""}
                 </a>
               </li>
             ))}
           </ol>
-          <p className="mt-6 text-xs leading-relaxed text-[var(--ink-soft)]">
-            {isDraft
-              ? "Drafted from Atena’s discovery answers and live screens. Process, reflection, and metric definitions still open."
-              : "Placeholder until discovery answers land — no invented metrics."}
-          </p>
+          {siblings.length > 0 ? (
+            <div className="mt-6 border-t border-[var(--line)] pt-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ink-soft)]">
+                Also in Achareh Expert
+              </p>
+              <ul className="mt-2 space-y-2 text-sm">
+                {siblings.map((sib) => (
+                  <li key={sib.slug}>
+                    <Link
+                      href={`/work/${sib.slug}`}
+                      className="font-medium text-[var(--ink)] hover:underline"
+                    >
+                      {sib.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </aside>
       </div>
 
-      <nav
-        aria-label="Adjacent cases"
-        className="mt-14 flex flex-col gap-3 border-t border-[var(--line)] pt-8 sm:flex-row sm:justify-between"
-      >
-        {prev ? (
-          <Link
-            href={`/work/${prev.slug}`}
-            className="rounded-[1.25rem] border-[2px] border-[var(--ink)] bg-white/70 px-5 py-4 transition-transform hover:-translate-y-0.5"
-          >
-            <span className="block text-xs uppercase tracking-wider text-[var(--ink-soft)]">
-              Previous
-            </span>
-            <span className="font-[family-name:var(--font-fredoka)] font-semibold">
-              {prev.title}
-            </span>
-          </Link>
-        ) : (
-          <span />
-        )}
-        {next ? (
-          <Link
-            href={`/work/${next.slug}`}
-            className="rounded-[1.25rem] border-[2px] border-[var(--ink)] bg-white/70 px-5 py-4 text-right transition-transform hover:-translate-y-0.5"
-          >
-            <span className="block text-xs uppercase tracking-wider text-[var(--ink-soft)]">
-              Next
-            </span>
-            <span className="font-[family-name:var(--font-fredoka)] font-semibold">
-              {next.title}
-            </span>
-          </Link>
-        ) : null}
-      </nav>
+      {(prev || next) && (
+        <nav
+          aria-label="Adjacent cases"
+          className="mt-14 flex flex-col gap-3 border-t border-[var(--line)] pt-8 sm:flex-row sm:justify-between"
+        >
+          {prev ? (
+            <Link
+              href={`/work/${prev.slug}`}
+              className="rounded-[1.25rem] border-[2px] border-[var(--ink)] bg-white/70 px-5 py-4 transition-transform hover:-translate-y-0.5"
+            >
+              <span className="block text-xs uppercase tracking-wider text-[var(--ink-soft)]">
+                Previous
+              </span>
+              <span className="font-[family-name:var(--font-fredoka)] font-semibold">
+                {prev.title}
+              </span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <Link
+              href={`/work/${next.slug}`}
+              className="rounded-[1.25rem] border-[2px] border-[var(--ink)] bg-white/70 px-5 py-4 text-right transition-transform hover:-translate-y-0.5"
+            >
+              <span className="block text-xs uppercase tracking-wider text-[var(--ink-soft)]">
+                Next
+              </span>
+              <span className="font-[family-name:var(--font-fredoka)] font-semibold">
+                {next.title}
+              </span>
+            </Link>
+          ) : null}
+        </nav>
+      )}
     </article>
   );
 }

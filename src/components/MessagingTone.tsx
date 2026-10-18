@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { MessagingChapter } from "@/data/cases";
 
 type MessagingToneProps = {
@@ -72,22 +71,19 @@ export function MessagingTone({ chapter }: MessagingToneProps) {
         <h3 className="font-[family-name:var(--font-fredoka)] text-lg font-semibold">
           Before → after copy
         </h3>
-        <p className="mt-1 text-sm text-[var(--ink-soft)]">{chapter.examplesNote}</p>
+        {chapter.examplesNote ? (
+          <p className="mt-1 text-sm text-[var(--ink-soft)]">{chapter.examplesNote}</p>
+        ) : null}
         <ul className="mt-4 grid gap-4">
           {chapter.examples.map((ex) => (
             <li
               key={ex.label}
               className="overflow-hidden rounded-[1.5rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] shadow-[var(--shadow-soft)]"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-[var(--ink)] px-4 py-3">
+              <div className="border-b-2 border-[var(--ink)] px-4 py-3">
                 <p className="font-[family-name:var(--font-fredoka)] text-sm font-semibold">
                   {ex.label}
                 </p>
-                {ex.source ? (
-                  <span className="rounded-[var(--radius-pill)] border border-[var(--line)] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--ink-soft)]">
-                    {ex.source}
-                  </span>
-                ) : null}
               </div>
               <div className="grid gap-0 sm:grid-cols-2">
                 <div className="border-b border-[var(--line)] p-4 sm:border-b-0 sm:border-r">
@@ -111,40 +107,6 @@ export function MessagingTone({ chapter }: MessagingToneProps) {
           ))}
         </ul>
       </div>
-
-      {chapter.board ? (
-        <div className="overflow-hidden rounded-[1.5rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] shadow-[var(--shadow-soft)]">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-[var(--ink)] px-4 py-3">
-            <p className="font-[family-name:var(--font-fredoka)] text-sm font-semibold">
-              Research board
-            </p>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--ink-soft)]">
-              Persian source
-            </span>
-          </div>
-          <div className="max-h-[40rem] overflow-y-auto bg-[linear-gradient(180deg,#f7f4ee,#fffdf8)] p-3 sm:p-5">
-            <Image
-              src={chapter.board.src}
-              alt={chapter.board.alt}
-              width={chapter.board.width}
-              height={chapter.board.height}
-              className="mx-auto h-auto w-full max-w-3xl rounded-[1rem] border-2 border-[var(--ink)] bg-white shadow-[var(--shadow-soft)]"
-              sizes="(max-width: 768px) 95vw, 720px"
-            />
-          </div>
-          {chapter.board.caption ? (
-            <p className="border-t border-[var(--line)] px-4 py-3 text-sm text-[var(--ink-muted)]">
-              {chapter.board.caption}
-            </p>
-          ) : null}
-        </div>
-      ) : null}
-
-      {chapter.outcomeNote ? (
-        <p className="rounded-[1.25rem] border border-dashed border-[var(--ink-soft)] px-4 py-3 text-sm text-[var(--ink-soft)]">
-          {chapter.outcomeNote}
-        </p>
-      ) : null}
     </section>
   );
 }
