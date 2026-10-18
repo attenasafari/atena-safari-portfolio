@@ -18,6 +18,29 @@ export type SampleAdoptionRow = {
   after: string;
 };
 
+export type MessagingExample = {
+  label: string;
+  before: string;
+  after: string;
+  source?: string;
+};
+
+export type MessagingChapter = {
+  intro: string;
+  method: string[];
+  principles: { title: string; body: string }[];
+  examplesNote: string;
+  examples: MessagingExample[];
+  board?: {
+    src: string;
+    alt: string;
+    caption?: string;
+    width: number;
+    height: number;
+  };
+  outcomeNote?: string;
+};
+
 export type CaseVisual = {
   src: string;
   label: string;
@@ -49,6 +72,7 @@ export type CaseStudy = {
     caption: string;
     rows: SampleAdoptionRow[];
   };
+  messaging?: MessagingChapter;
   visuals?: CaseVisual[];
   visualsNote?: string;
   visualsTitle?: string;
@@ -387,18 +411,77 @@ export const caseStudies: CaseStudy[] = [
         status: "ready",
       },
       {
-        id: "also-messaging",
-        title: "Also — expert messaging",
-        body: "Related expert-side work from the same inventory: message-tone research — survey with message screenshots → rewrite confusing or cold copy warmer. Screens and outcome metrics for this thread are TBD; not the primary chapter of this case.",
-        status: "placeholder",
-      },
-      {
         id: "reflection",
         title: "Reflection",
         body: "Coming soon.",
         status: "placeholder",
       },
     ],
+    messaging: {
+      intro:
+        "Companion research on Achareh’s expert app: system messages that experts understood — and still felt distrusted, limited, or punished. Full inventory in the Project docs; this chapter follows the one-pager.",
+      method: [
+        "Show message screenshots in context.",
+        "Ask how experts feel when they see each message.",
+        "Ask how they’d explain the situation to a colleague.",
+        "Rewrite confusing or harsh copy into clearer partner language — without hiding the rule.",
+      ],
+      principles: [
+        {
+          title: "Marketplace, not failure",
+          body: "Peers took the job; don’t call normal competition an “error.”",
+        },
+        {
+          title: "Name the limit",
+          body: "Whose quota, what refill, what to do next.",
+        },
+        {
+          title: "Define the money",
+          body: "One plain meaning for commission / balance / fee.",
+        },
+        {
+          title: "Coach on exit",
+          body: "Cancel reasons and fees without scaring people off.",
+        },
+        {
+          title: "Match how experts talk",
+          body: "Short lines; done / not done; status they can scan in My Desk (quota, credit, silver/gold progress).",
+        },
+      ],
+      examplesNote:
+        "Signature rewrite is Atena’s. Other pairs are proposed English directions from the research write-up (consistent with the board — not locked production strings).",
+      examples: [
+        {
+          label: "Unavailable request",
+          before: "Sorry, this request isn’t available right now.",
+          after: "Your colleagues working on this project, maybe another time :)",
+          source: "Atena’s rewrite",
+        },
+        {
+          label: "Proposal capacity full",
+          before: "Dear expert, proposal capacity for this request is full.",
+          after: "This request already has enough proposals. Browse other open requests.",
+          source: "Proposed direction",
+        },
+        {
+          label: "Personal proposal quota",
+          before: "Unfortunately your proposal quota is finished.",
+          after:
+            "You’ve used this period’s proposals. Finish or close jobs in progress to free quota — then you can bid again.",
+          source: "Proposed direction",
+        },
+      ],
+      board: {
+        src: "/cases/achareh-expert-messages/research-board-fa.png",
+        alt: "Persian research board auditing Achareh expert system messages with feelings, issues, and rewrite directions",
+        caption:
+          "Source board (Persian): Improving system message text for the Achareh expert app — message cards + tone patterns.",
+        width: 3199,
+        height: 13511,
+      },
+      outcomeNote:
+        "Research complete on the board. Ship impact / sample size = TBD — no messaging metrics claimed here. My Desk outcomes above (page view +80%; avg feature adoption → 40%) stay the stated hub metrics.",
+    },
   },
 ];
 
