@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CaseVisual } from "@/data/cases";
+import { withBasePath } from "@/lib/base-path";
 
 type CaseVisualsProps = {
   visuals: CaseVisual[];
@@ -63,7 +64,7 @@ export function CaseVisuals({
             <div className="relative mx-auto w-full max-w-[20rem] bg-[linear-gradient(180deg,#eef8f6,#f7f4ee)] px-4 py-5">
               <div className="overflow-hidden rounded-[1.25rem] border-2 border-[var(--ink)] bg-white shadow-[var(--shadow-key)]">
                 <Image
-                  src={visual.src}
+                  src={withBasePath(visual.src)}
                   alt={visual.alt}
                   width={visual.width}
                   height={visual.height}
