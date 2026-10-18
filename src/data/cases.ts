@@ -40,6 +40,7 @@ export type CaseStudy = {
   metrics?: CaseMetric[];
   visuals?: CaseVisual[];
   visualsNote?: string;
+  visualsTitle?: string;
   sections: CaseSection[];
 };
 
@@ -80,6 +81,7 @@ export const caseStudies: CaseStudy[] = [
         note: "Qualitative outcome she reported",
       },
     ],
+    visualsTitle: "Before → after → order status",
     visualsNote:
       "Live product screens from Achareh’s customer home. Before = prior home; After frames = current production UI (Atena confirmed the redesign is live).",
     visuals: [
@@ -203,6 +205,7 @@ export const caseStudies: CaseStudy[] = [
         note: "Qualitative — as stated by Atena",
       },
     ],
+    visualsTitle: "Before → after",
     visualsNote:
       "Moving calculator screens from discovery. Before = form with Calculate price; After = realtime estimated cost while configuring the move.",
     visuals: [
@@ -272,6 +275,98 @@ export const caseStudies: CaseStudy[] = [
         id: "reflection",
         title: "Reflection",
         body: "Coming soon — what she’d revisit once metric definitions and process notes are filled.",
+        status: "placeholder",
+      },
+    ],
+  },
+  {
+    slug: "achareh-my-desk",
+    title: "My Desk — expert activity hub",
+    eyebrow: "Achareh · Expert side",
+    company: "Achareh",
+    role: "Product Design Lead",
+    timeframe: "Expert platform",
+    summary:
+      "A new expert-side hub for Achareh — My Desk — giving pros a central place for activities and engagement they didn’t have before.",
+    accent: "var(--accent-lime)",
+    tags: ["Expert tools", "Hub", "Engagement"],
+    draftStatus: "draft",
+    outcomeTeaser: "Page view +80% · feature adoption → 40%",
+    metrics: [
+      {
+        label: "Page view",
+        value: "+80%",
+        note: "As stated by Atena — definition / window TBD",
+      },
+      {
+        label: "Avg. feature adoption (My Desk)",
+        value: "→ 40%",
+        note: "Average for all features in My Desk — as stated by Atena",
+      },
+    ],
+    visualsTitle: "My Desk hub",
+    visualsNote:
+      "Expert-side My Desk hub screen from discovery. Before-state screens and messaging examples still TBD.",
+    visuals: [
+      {
+        src: "/cases/achareh-my-desk/my-desk-hub.png",
+        label: "My Desk",
+        state: "Hub",
+        caption:
+          "Central hub for expert activities — club, finance, calendar, orders, guides, performance, and more — plus engagement entry points that didn’t exist as a home before.",
+        alt: "Achareh My Desk hub showing Experts Club, Finance, and grid of expert activity shortcuts",
+        badgeColor: "var(--accent-lime)",
+        width: 1500,
+        height: 3268,
+      },
+    ],
+    sections: [
+      {
+        id: "problem",
+        title: "Problem",
+        body: "On the Achareh expert side, pros lacked a central place for their activities and engagement. My Desk was introduced as that hub.",
+        bullets: [
+          "No single home for expert activities before My Desk.",
+          "Engagement activities needed a clear place on the expert side.",
+        ],
+        status: "ready",
+      },
+      {
+        id: "role",
+        title: "Role",
+        body: "Product Design Lead at Achareh (from resume / inventory). Collaborators and decision rights for this hub still TBD.",
+        status: "ready",
+      },
+      {
+        id: "what-changed",
+        title: "What changed",
+        body: "Shipped a new hub page — My Desk — as the central place for expert activities and engagement.",
+        bullets: [
+          "New My Desk hub covering expert activities and engagement they didn’t have before.",
+          "Entry points into club, finance, calendar, orders, learning, and related tools (as shown on the hub screen).",
+        ],
+        status: "ready",
+      },
+      {
+        id: "outcome",
+        title: "Outcomes",
+        body: "Results as Atena stated them. Fuller metric definitions and time windows still TBD.",
+        bullets: [
+          "Page view +80%",
+          "Average feature adoption for all features in My Desk increased to 40%",
+        ],
+        status: "ready",
+      },
+      {
+        id: "also-messaging",
+        title: "Also — expert messaging",
+        body: "Related expert-side work from the same inventory: message-tone research — survey with message screenshots → rewrite confusing or cold copy warmer. Screens and outcome metrics for this thread are TBD; not the primary chapter of this case.",
+        status: "placeholder",
+      },
+      {
+        id: "reflection",
+        title: "Reflection",
+        body: "Coming soon.",
         status: "placeholder",
       },
     ],

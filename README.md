@@ -30,7 +30,7 @@ npm start
 | `/about` | Bio, experience, skills |
 | `/contact` | Email, LinkedIn, ADPList, phone |
 
-Cases: Achareh customer home (live screens); moving price calculator (before/after + stated metrics).
+Cases: Achareh customer home; moving price calculator; My Desk expert hub.
 
 ## Design system
 
