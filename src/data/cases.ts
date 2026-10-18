@@ -12,6 +12,12 @@ export type CaseMetric = {
   note?: string;
 };
 
+export type SampleAdoptionRow = {
+  feature: string;
+  before: string;
+  after: string;
+};
+
 export type CaseVisual = {
   src: string;
   label: string;
@@ -38,6 +44,11 @@ export type CaseStudy = {
   draftStatus: "draft" | "coming-soon";
   outcomeTeaser: string;
   metrics?: CaseMetric[];
+  /** Illustrative feature-level rows — not verified analytics unless noted */
+  sampleAdoption?: {
+    caption: string;
+    rows: SampleAdoptionRow[];
+  };
   visuals?: CaseVisual[];
   visualsNote?: string;
   visualsTitle?: string;
@@ -304,6 +315,24 @@ export const caseStudies: CaseStudy[] = [
         note: "Average for all features in My Desk — as stated by Atena",
       },
     ],
+    sampleAdoption: {
+      caption:
+        "Sample feature-level adoption (illustrative; overall average adoption → 40% as stated). Not verified analytics — examples for storytelling until Atena confirms feature-level numbers.",
+      rows: [
+        { feature: "Work Calendar", before: "2%", after: "10%" },
+        { feature: "Customer Order", before: "5%", after: "45%" },
+        { feature: "Saved Replies", before: "3%", after: "38%" },
+        { feature: "Service Areas", before: "8%", after: "42%" },
+        { feature: "Study Materials", before: "4%", after: "35%" },
+        { feature: "Guides & Tutorials", before: "6%", after: "40%" },
+        { feature: "Refer & earn", before: "2%", after: "28%" },
+        { feature: "My Performance", before: "10%", after: "52%" },
+        { feature: "Price List", before: "7%", after: "48%" },
+        { feature: "Client Discounts", before: "4%", after: "36%" },
+        { feature: "Experts Club", before: "12%", after: "55%" },
+        { feature: "Finance", before: "15%", after: "50%" },
+      ],
+    },
     visualsTitle: "My Desk hub",
     visualsNote:
       "Expert-side My Desk hub screen from discovery. Before-state screens and messaging examples still TBD.",
@@ -350,7 +379,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "outcome",
         title: "Outcomes",
-        body: "Results as Atena stated them. Fuller metric definitions and time windows still TBD.",
+        body: "Headline results as Atena stated them. Feature-level rows below are sample / illustrative only (Work Calendar 2% → 10% follows her direction; other rows are coherent examples averaging toward ~40% after). Metric definitions and time windows still TBD.",
         bullets: [
           "Page view +80%",
           "Average feature adoption for all features in My Desk increased to 40%",
