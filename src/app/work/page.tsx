@@ -13,7 +13,7 @@ export default function WorkPage() {
     <>
       <PageHeader
         title="Selected work"
-        description="Case studies first. Achareh customer home is live; moving price & checkout is drafted with goals — metrics still TBD."
+        description="Case studies first. Achareh customer home and moving calculator are drafted from discovery with before/after screens."
       />
       <CaseList />
     </>
