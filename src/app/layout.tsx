@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import { Fredoka, Figtree } from "next/font/google";
-import { Atmosphere } from "@/components/Atmosphere";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -33,10 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${fredoka.variable} ${figtree.variable} h-full antialiased`}
     >
       <body className="relative flex min-h-full flex-col font-[family-name:var(--font-figtree)]">
-        <Atmosphere />
-        <Nav />
-        <main className="relative z-[1] flex flex-1 flex-col">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

@@ -13,6 +13,10 @@ export const site = {
     { href: "/work", label: "Work" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
+    { href: "/home-2", label: "Home 2" },
+    { href: "/work-2", label: "Work 2" },
+    { href: "/about-2", label: "About 2" },
+    { href: "/contact-2", label: "Contact 2" },
   ],
   summary:
     "Senior Product Design Lead with 10 years of experience driving end-to-end UX/UI across fintech, marketplace, and service-platform products. Design systems, UX research, data-driven decisions, and mentoring teams.",
