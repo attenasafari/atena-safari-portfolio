@@ -25,10 +25,11 @@ export function Nav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-[var(--radius-pill)] px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
+              aria-current={active ? "page" : undefined}
+              className={`rounded-[var(--radius-pill)] px-3 py-1.5 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a] ${
                 active
-                  ? "bg-[var(--ink)] text-[var(--bg-elevated)]"
-                  : "text-[var(--ink-muted)] hover:bg-black/5 hover:text-[var(--ink)]"
+                  ? "nav-active"
+                  : "text-[#3f3d3a] hover:bg-black/10 hover:text-[#1a1a1a]"
               }`}
             >
               {item.label}

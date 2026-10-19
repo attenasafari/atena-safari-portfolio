@@ -171,12 +171,21 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ink-soft)]">
                   {metric.label}
                 </p>
-                <p className="mt-2 font-[family-name:var(--font-fredoka)] text-2xl font-semibold tracking-tight">
+                <p
+                  className="mt-2 font-[family-name:var(--font-fredoka)] text-2xl font-semibold tracking-tight"
+                  title={metric.hint}
+                >
                   {metric.value}
                 </p>
+                {metric.hint ? (
+                  <p className="mt-1 text-xs font-medium text-[var(--ink-muted)]">{metric.hint}</p>
+                ) : null}
               </li>
             ))}
           </ul>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--ink-muted)]">
+            Data shown is mock and results are shown as percentages due to NDA.
+          </p>
 
           {study.adoptionTable ? (
             <div className="mt-6 overflow-hidden rounded-[1.5rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] shadow-[var(--shadow-soft)]">

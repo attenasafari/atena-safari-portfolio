@@ -52,7 +52,7 @@ After that setting is saved, the next push to `main` (or a manual run of the wor
 | `/work` | Case study list |
 | `/work/[slug]` | Case template (skeleton bodies until content lands) |
 | `/about` | Bio, experience, skills |
-| `/contact` | Email, LinkedIn, ADPList, phone |
+| `/contact` | Email, LinkedIn, ADPList |
 
 Cases: Achareh customer home; moving calculator; Achareh Expert (My Desk + Expert messages).
 
