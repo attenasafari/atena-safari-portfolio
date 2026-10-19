@@ -4,7 +4,6 @@ export const site = {
   tagline:
     "I lead product design for marketplaces and fintech — research to systems to shipped features.",
   email: "atenasafari926@gmail.com",
-  phone: "",
   links: {
     linkedin: "https://www.linkedin.com/in/attena-safari/",
     adplist: "https://adplist.org/mentors/atena-safari",
