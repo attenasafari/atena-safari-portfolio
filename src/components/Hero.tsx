@@ -1,17 +1,23 @@
 import { NameHighlight } from "@/components/NameHighlight";
+import { typeDuration } from "@/lib/type-timing";
 import { Keycap } from "@/components/Keycap";
 import { KeycapCta } from "@/components/KeycapCta";
 import { FloatingWidget } from "@/components/FloatingWidget";
 import { getFeaturedCase } from "@/data/cases";
 import { site } from "@/data/site";
 
-const brandKeys = [
-  { letter: "A", color: "var(--accent-coral)" },
-  { letter: "T", color: "var(--accent-amber)" },
-  { letter: "E", color: "var(--accent-lime)" },
-  { letter: "N", color: "var(--accent-mint)" },
-  { letter: "A", color: "var(--accent-sky)" },
-] as const;
+const portfolioLetters = "PORTFOLIO".split("");
+const portfolioColors = [
+  "var(--accent-coral)",
+  "var(--accent-amber)",
+  "var(--accent-lime)",
+  "var(--accent-mint)",
+  "var(--accent-sky)",
+  "var(--accent-pink)",
+  "var(--accent-coral)",
+  "var(--accent-amber)",
+  "var(--accent-lime)",
+];
 
 export function Hero() {
   const featured = getFeaturedCase();
@@ -64,19 +70,21 @@ export function Hero() {
         </p>
 
         <div
-          className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
-          aria-label="Atena brand keycaps"
+          className="mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-2 sm:gap-3"
+          aria-hidden
         >
-          {brandKeys.map((key, i) => (
+          {portfolioLetters.map((letter, i) => (
             <Keycap
-              key={`${key.letter}-${i}`}
-              label={key.letter}
-              color={key.color}
-              delayMs={80 + i * 70}
-              size="lg"
+              key={`${letter}-${i}`}
+              label={letter}
+              color={portfolioColors[i]}
+              press
+              delayMs={typeDuration(site.name) + i * 420}
+              size="row"
             />
           ))}
         </div>
+        <p className="sr-only">Portfolio</p>
 
         <div className="mt-8 flex w-full justify-center">
           <KeycapCta href="/work" label="See the work" />

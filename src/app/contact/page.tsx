@@ -35,12 +35,6 @@ export default function ContactPage() {
               href: site.links.adplist,
               accent: "var(--accent-lime)",
             },
-            {
-              label: "Phone",
-              value: site.phone,
-              href: `tel:${site.phone.replace(/\s/g, "")}`,
-              accent: "var(--accent-amber)",
-            },
           ].map((item) => (
             <li key={item.label}>
               <a

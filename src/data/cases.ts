@@ -8,6 +8,8 @@ export type CaseSection = {
 export type CaseMetric = {
   label: string;
   value: string;
+  /** Extra wording shown with the value, such as "percentage points". */
+  hint?: string;
 };
 
 export type AdoptionRow = {
@@ -75,32 +77,32 @@ export const caseStudies: CaseStudy[] = [
     title: "Find, book, manage — customer home",
     eyebrow: "Achareh · Client home",
     company: "Achareh",
-    role: "Senior product designer",
+    role: "Product Design Lead",
     timeframe: "2023 – Present",
     summary:
-      "Redesigning Achareh’s customer home so people could find orders, set the right city, and get from search into add-order without hunting.",
+      "Designing and building Achareh’s customer home so people could find orders and get from search into add-order without hunting.",
     accent: "var(--accent-sky)",
-    tags: ["Marketplace", "Home redesign"],
+    tags: ["Marketplace", "New build"],
     featured: true,
     kind: "case",
-    outcomeTeaser: "Search usage +80% · bounce −10%",
+    outcomeTeaser: "Search usage +80% · bounce −10 pp",
     metrics: [
       { label: "Search bar usage", value: "+80%" },
       { label: "Time to find a service", value: "−1 minute" },
-      { label: "Bounce rate", value: "−10%" },
+      { label: "Bounce rate", value: "−10 pp", hint: "percentage points" },
       { label: "Order management", value: "From first page" },
     ],
     visualsTitle: "Before → after → order status",
     visualsNote:
-      "Customer home before the redesign, the live after home with My Orders in nav, and the order-status modal on home.",
+      "The previous customer home, the new home with My Orders in nav, and the order-status modal on home.",
     visuals: [
       {
         src: "/cases/achareh-customer-home/before-home.png",
         label: "Before",
         state: "Prior home",
         caption:
-          "Compact top search and city (“”); category grid and promo carousel. No bottom nav, no My Orders entry, and no order-status UI on home.",
-        alt: "Achareh customer home before redesign — compact search bar and category grid without bottom navigation",
+          "Compact top search; category grid and promo carousel. No bottom nav, no My Orders entry, and no order-status UI on home.",
+        alt: "Achareh customer home before the new build — compact search bar and category grid without bottom navigation",
         badgeColor: "var(--accent-amber)",
         width: 446,
         height: 918,
@@ -110,8 +112,8 @@ export const caseStudies: CaseStudy[] = [
         label: "After — home",
         state: "After",
         caption:
-          "Teal hero with city + search as the primary control; category grid below; bottom nav including My Orders so orders are findable from the first page.",
-        alt: "Achareh customer home after redesign — teal hero with city and search, categories, and My Orders in bottom nav",
+          "Teal hero with search as the primary control; category grid below; bottom nav including My Orders so orders are findable from the first page.",
+        alt: "Achareh customer home after the new build — teal hero with search, categories, and My Orders in bottom nav",
         badgeColor: "var(--accent-mint)",
         width: 750,
         height: 2366,
@@ -132,25 +134,24 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "problem",
         title: "Problem",
-        body: "On Achareh’s customer home — a marketplace for home services where city changes which services are available and what they cost — three frictions stacked on top of each other.",
+        body: "On Achareh’s customer home — a marketplace for home services — three frictions stacked on top of each other.",
         bullets: [
           "Users couldn’t find their orders.",
-          "City and search weren’t findable on the home experience.",
+          "Search wasn’t findable on the home experience.",
           "Search didn’t get people into add-order fast enough.",
         ],
       },
       {
         id: "role",
         title: "Role",
-        body: "Senior product designer on the customer home redesign.",
+        body: "Product Design Lead on the new customer home.",
       },
       {
         id: "decisions",
         title: "What changed",
-        body: "Four product directions answered the problem.",
+        body: "Three product directions answered the problem.",
         bullets: [
           "Button navigation, including My Orders in the bottom nav.",
-          "Ask for city first — services and pricing differ by city; city sits with search in the hero.",
           "Search as the main hero action so people move into add-order faster.",
           "Current order status on home for recent orders — status, main actions, pro data.",
         ],
@@ -158,11 +159,11 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "outcome",
         title: "Outcomes",
-        body: "Results from the redesign.",
+        body: "Results from the new customer home.",
         bullets: [
           "Search bar usage +80%",
           "Time-to-find-service −1 minute",
-          "Bounce rate −10%",
+          "Bounce rate −10 pp",
           "Orders manageable from the first page",
         ],
       },
@@ -173,7 +174,7 @@ export const caseStudies: CaseStudy[] = [
     title: "See the price first — moving calculator",
     eyebrow: "Achareh · Moving · Web",
     company: "Achareh",
-    role: "Product designer",
+    role: "Product Design Lead",
     timeframe: "Customer · web",
     summary:
       "On Achareh’s moving service, a huge drop-off sat between checkout and submit while people hunted for price. A calculator helped — until it felt like a huge form. Realtime price brought adoption and checkout completion back.",
@@ -226,7 +227,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "role",
         title: "Role",
-        body: "Product designer on this work.",
+        body: "Product Design Lead on this work.",
       },
       {
         id: "what-changed",

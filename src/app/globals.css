@@ -76,9 +76,79 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* Active nav: near-white on near-black. Unlayered so it wins over inherited link color. */
+.nav-active {
+  background-color: #1a1a1a;
+  color: #fffdf8;
+}
+
+.nav-active:hover,
+.nav-active:focus-visible {
+  background-color: #111111;
+  color: #fffdf8;
+}
+
+nav a:not(.nav-active):hover {
+  background-color: rgba(26, 26, 26, 0.08);
+  color: #1a1a1a;
+}
+
+nav a:focus-visible {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
+}
+
+.name-still {
+  display: none;
+}
+
+.name-typed {
+  display: inline-block;
+}
+
+.type-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  margin-left: 2px;
+  background: var(--ink);
+  vertical-align: -0.05em;
+  animation: caret-blink 0.8s step-end infinite;
+}
+
+.case-card .case-more {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 280ms var(--ease-press),
+    opacity 220ms ease;
+}
+
+.case-card.is-open .case-more,
+.case-card:hover .case-more,
+.case-card:focus-within .case-more {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.case-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-toggle {
+    display: none;
+  }
 }
 
 ::selection {
@@ -131,6 +201,29 @@ a {
   }
 }
 
+@keyframes key-press {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: var(--shadow-key);
+  }
+  42% {
+    transform: translateY(6px);
+    box-shadow: var(--shadow-key-pressed);
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes soft-pulse {
   0%,
   100% {
@@ -154,6 +247,11 @@ a {
   animation: key-pop-in 0.55s var(--ease-press) both;
 }
 
+.animate-key-press {
+  animation: key-press 460ms var(--ease-press);
+  animation-fill-mode: none;
+}
+
 .animate-cta-pulse {
   animation: soft-pulse 2.8s var(--ease-float) infinite;
 }
@@ -162,7 +260,21 @@ a {
   .animate-float,
   .animate-float-delayed,
   .animate-key-in,
-  .animate-cta-pulse {
+  .animate-key-press,
+  .animate-cta-pulse,
+  .type-caret {
     animation: none;
+  }
+
+  .name-still {
+    display: inline-block;
+  }
+
+  .name-typed {
+    display: none;
+  }
+
+  .case-card .case-more {
+    transition: none;
   }
 }

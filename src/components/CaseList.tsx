@@ -1,90 +1,75 @@
+"use client";
+
 import Link from "next/link";
+import { useId, useState } from "react";
 import { getChildCases, getWorkListEntries, type CaseStudy } from "@/data/cases";
 
-function CaseRow({
-  study,
-  index,
-  nested = false,
-}: {
-  study: CaseStudy;
-  index: number;
-  nested?: boolean;
-}) {
-  const isOverview = study.kind === "overview";
+function CaseStackItem({ study, nested = false }: { study: CaseStudy; nested?: boolean }) {
+  const [open, setOpen] = useState(false);
+  const detailsId = useId();
 
   return (
-    <Link
-      href={`/work/${study.slug}`}
-      className={`group grid gap-4 rounded-[1.75rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] p-5 shadow-[var(--shadow-soft)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-[var(--shadow-float)] sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-8 sm:p-7 ${
-        nested ? "border-[var(--line)] shadow-none" : ""
-      }`}
-    >
-      <span
-        className="flex h-14 w-14 items-center justify-center rounded-[1.1rem] font-[family-name:var(--font-fredoka)] text-xl font-semibold text-[var(--ink)] shadow-[var(--shadow-key)] transition-transform duration-200 group-hover:-translate-y-0.5"
-        style={{ backgroundColor: study.accent }}
-        aria-hidden
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
-          {study.eyebrow}
-        </p>
-        <h2 className="mt-1 font-[family-name:var(--font-fredoka)] text-2xl font-semibold tracking-tight sm:text-3xl">
-          {study.title}
-        </h2>
-        <p className="mt-2 max-w-2xl text-[var(--ink-muted)]">{study.summary}</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {study.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-[var(--radius-pill)] border border-[var(--line)] bg-white/70 px-3 py-1 text-xs font-medium text-[var(--ink-muted)]"
-            >
-              {tag}
-            </span>
-          ))}
+    <li className={nested ? "pl-3" : undefined}>
+      <div className={`case-card ${open ? "is-open" : ""}`}>
+        <div
+          className={`flex items-center gap-1 rounded-[1.1rem] border-[2px] border-[var(--ink)] bg-[var(--bg-elevated)] shadow-[var(--shadow-soft)] ${
+            nested ? "border-[var(--line)]" : ""
+          }`}
+        >
+          <Link
+            href={`/work/${study.slug}`}
+            className="min-w-0 flex-1 rounded-[1rem] px-3 py-2.5 font-[family-name:var(--font-fredoka)] text-base font-semibold leading-snug text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]"
+          >
+            {study.title}
+          </Link>
+          <button
+            type="button"
+            className="case-toggle mr-1.5 h-9 w-9 shrink-0 items-center justify-center rounded-[0.8rem] text-lg text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]"
+            aria-expanded={open}
+            aria-controls={detailsId}
+            aria-label={`${open ? "Hide" : "Show"} details for ${study.title}`}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span aria-hidden>{open ? "–" : "+"}</span>
+          </button>
+        </div>
+        <div className="case-more" id={detailsId}>
+          <div className="overflow-hidden">
+            <div className="px-3 pt-2 pb-1">
+              <p className="text-sm leading-snug text-[var(--ink-muted)]">{study.summary}</p>
+              <p className="mt-1.5 text-xs font-semibold text-[var(--ink)]">{study.outcomeTeaser}</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end sm:text-right">
-        <p className="text-sm font-medium text-[var(--ink)]">{study.outcomeTeaser}</p>
-        <span className="inline-flex h-11 items-center rounded-[1rem] bg-[var(--ink)] px-4 font-[family-name:var(--font-fredoka)] text-sm font-semibold text-white transition-transform duration-200 group-hover:translate-x-1">
-          {isOverview ? "Open overview ↵" : "Open case ↵"}
-        </span>
-      </div>
-    </Link>
+    </li>
+  );
+}
+
+function CaseGroup({ study }: { study: CaseStudy }) {
+  const children = study.kind === "overview" ? getChildCases(study.slug) : [];
+
+  return (
+    <li>
+      <ul className="flex flex-col gap-1.5">
+        <CaseStackItem study={study} />
+        {children.map((child) => (
+          <CaseStackItem key={child.slug} study={child} nested />
+        ))}
+      </ul>
+    </li>
   );
 }
 
 export function CaseList() {
   const topLevel = getWorkListEntries();
-  let counter = 0;
 
   return (
     <div className="mx-auto w-full max-w-[var(--content-max)] px-[var(--page-pad)] pb-16">
-      <ul className="grid gap-5">
-        {topLevel.map((study) => {
-          const index = counter++;
-          const children =
-            study.kind === "overview" ? getChildCases(study.slug) : [];
-
-          return (
-            <li key={study.slug} className="space-y-3">
-              <CaseRow study={study} index={index} />
-              {children.length > 0 ? (
-                <ul className="ml-0 grid gap-3 border-l-[3px] border-[var(--accent-lime)] pl-4 sm:ml-6">
-                  {children.map((child) => {
-                    const childIndex = counter++;
-                    return (
-                      <li key={child.slug}>
-                        <CaseRow study={child} index={childIndex} nested />
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : null}
-            </li>
-          );
-        })}
+      <ul className="flex w-full max-w-md flex-col gap-3">
+        {topLevel.map((study) => (
+          <CaseGroup key={study.slug} study={study} />
+        ))}
       </ul>
     </div>
   );
