@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# taste skill working files
+/.taste-skill/
+
 # production
 /build
 
