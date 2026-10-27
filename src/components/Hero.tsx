@@ -3,7 +3,6 @@ import { typeDuration } from "@/lib/type-timing";
 import { Keycap } from "@/components/Keycap";
 import { KeycapCta } from "@/components/KeycapCta";
 import { FloatingWidget } from "@/components/FloatingWidget";
-import { getFeaturedCase } from "@/data/cases";
 import { site } from "@/data/site";
 
 const portfolioLetters = "PORTFOLIO".split("");
@@ -20,28 +19,8 @@ const portfolioColors = [
 ];
 
 export function Hero() {
-  const featured = getFeaturedCase();
-
   return (
     <section className="relative flex min-h-[calc(100svh-5.5rem)] flex-col items-center justify-center px-[var(--page-pad)] pb-16 pt-4">
-      <FloatingWidget
-        side="left"
-        href={`/work/${featured.slug}`}
-        title={featured.title}
-        meta="Featured case"
-        accent="var(--accent-sky)"
-        delayClass="animate-float"
-        icon={
-          <div className="flex w-full items-end justify-between gap-2 text-[var(--ink)]">
-            <span className="font-[family-name:var(--font-fredoka)] text-xs font-semibold opacity-80">
-              Home
-            </span>
-            <span className="rounded-lg bg-white/85 px-2 py-1 text-[10px] font-bold">
-              +80%
-            </span>
-          </div>
-        }
-      />
       <FloatingWidget
         side="right"
         href="/about"
