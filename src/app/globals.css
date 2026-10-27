@@ -123,34 +123,6 @@ nav a:focus-visible {
   animation: caret-blink 0.8s step-end infinite;
 }
 
-.case-card .case-more {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition:
-    grid-template-rows 280ms var(--ease-press),
-    opacity 220ms ease;
-}
-
-.case-card.is-open .case-more,
-.case-card:hover .case-more,
-.case-card:focus-within .case-more {
-  grid-template-rows: 1fr;
-  opacity: 1;
-}
-
-.case-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .case-toggle {
-    display: none;
-  }
-}
-
 ::selection {
   background: var(--accent-pink-soft);
   color: var(--ink);
@@ -272,9 +244,5 @@ nav a:focus-visible {
 
   .name-typed {
     display: none;
-  }
-
-  .case-card .case-more {
-    transition: none;
   }
 }
