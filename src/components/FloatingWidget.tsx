@@ -8,7 +8,6 @@ type FloatingWidgetProps = {
   accent: string;
   delayClass?: string;
   icon?: ReactNode;
-  side: "left" | "right";
 };
 
 export function FloatingWidget({
@@ -18,14 +17,11 @@ export function FloatingWidget({
   accent,
   delayClass = "animate-float",
   icon,
-  side,
 }: FloatingWidgetProps) {
   return (
     <Link
       href={href}
-      className={`group absolute top-1/2 z-10 hidden w-[9.5rem] -translate-y-1/2 rounded-[1.35rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] p-3 shadow-[var(--shadow-float)] transition-[transform,box-shadow] duration-300 hover:-translate-y-[calc(50%+6px)] hover:shadow-[0_16px_36px_rgba(26,26,26,0.14)] lg:block ${delayClass} ${
-        side === "left" ? "left-[max(0.75rem,calc(50%-28rem))]" : "right-[max(0.75rem,calc(50%-28rem))]"
-      }`}
+      className={`group relative z-10 block w-[9.5rem] rounded-[1.35rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] p-3 shadow-[var(--shadow-float)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_rgba(26,26,26,0.14)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)] ${delayClass}`}
     >
       <div
         className="mb-3 flex h-16 items-end justify-start overflow-hidden rounded-[1rem] px-3 pb-2"
