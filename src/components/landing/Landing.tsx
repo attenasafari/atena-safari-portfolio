@@ -1,8 +1,9 @@
 "use client";
 
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { withBasePath } from "@/lib/base-path";
 import "./landing.css";
+import { startLandingMotion } from "./scroll-motion";
 
 function asset(file: string) {
   return withBasePath(`/landing/${file}`);
@@ -216,6 +217,13 @@ export function Landing() {
   const [openFaq, setOpenFaq] = useState<boolean[]>(() => faqs.map(() => true));
   const onlineDialog = useRef<HTMLDialogElement>(null);
   const inPersonDialog = useRef<HTMLDialogElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = pageRef.current;
+    if (!node) return;
+    return startLandingMotion(node);
+  }, []);
   const activeDoc = documents.find((item) => item.id === doc) ?? documents[7];
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -249,7 +257,7 @@ export function Landing() {
   }
 
   return (
-    <div className={"ach-page"} lang="fa">
+    <div ref={pageRef} className={"ach-page"} lang="fa">
       <a className={"ach-skip"} href="#signup">
         رفتن به ثبت‌نام
       </a>
