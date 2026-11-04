@@ -4,6 +4,9 @@ import { basePath } from "./src/lib/base-path";
 const nextConfig: NextConfig = {
   output: "export",
   basePath,
+  // Dev is documented on 127.0.0.1. Next blocks that host unless it is allowed,
+  // which leaves the page as static HTML with no clicks.
+  allowedDevOrigins: ["127.0.0.1"],
   // Emit /about/index.html so static hosts (including GitHub Pages) resolve
   // directory URLs without a rewrite to .html files.
   trailingSlash: true,

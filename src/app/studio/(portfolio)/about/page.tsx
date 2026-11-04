@@ -76,7 +76,7 @@ export default function AboutPage() {
           </section>
 
           <div className="pt-2">
-            <KeycapCta href="/contact" label="Say hello" />
+            <KeycapCta href="/studio/contact" label="Say hello" />
           </div>
           <p className="text-sm text-[var(--ink-soft)]">
             Prefer LinkedIn?{" "}
