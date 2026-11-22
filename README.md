@@ -46,13 +46,25 @@ After that setting is saved, the next push to `main` (or a manual run of the wor
 
 ## Pages
 
+Quiz Club is the product at the root. The case-study portfolio lives under `/studio`.
+
 | Route | Purpose |
 | --- | --- |
-| `/` | Home hero — brand keycaps, pink name highlight, black CTA |
-| `/work` | Case study list |
-| `/work/[slug]` | Case template (skeleton bodies until content lands) |
-| `/about` | Bio, experience, skills |
-| `/contact` | Email, LinkedIn, ADPList |
+| `/` | Quiz Club home |
+| `/explore` | Search, categories, saved quizzes |
+| `/category/[id]` | One category |
+| `/quiz/[id]` | Quiz detail |
+| `/play/[id]` | Five-question round |
+| `/results/[id]` | Score and share |
+| `/challenge` | Friend challenges and rankings |
+| `/leaderboard` | Sample weekly board |
+| `/profile` | XP, streak, achievements, history |
+| `/settings` | Guest name, timer, reset |
+| `/studio` | Portfolio home |
+| `/studio/work` | Case study list |
+| `/studio/work/[slug]` | Case study |
+| `/studio/about` | Bio, experience, skills |
+| `/studio/contact` | Email, LinkedIn, ADPList |
 
 Cases: Achareh customer home; moving calculator; Achareh Expert (My Desk + Expert messages).
 

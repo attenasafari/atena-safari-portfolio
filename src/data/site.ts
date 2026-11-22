@@ -9,10 +9,10 @@ export const site = {
     adplist: "https://adplist.org/mentors/atena-safari",
   },
   nav: [
-    { href: "/", label: "Home" },
-    { href: "/work", label: "Work" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/studio", label: "Home" },
+    { href: "/studio/work", label: "Work" },
+    { href: "/studio/about", label: "About" },
+    { href: "/studio/contact", label: "Contact" },
   ],
   summary:
     "Senior Product Design Lead with 10 years of experience driving end-to-end UX/UI across fintech, marketplace, and service-platform products. Design systems, UX research, data-driven decisions, and mentoring teams.",

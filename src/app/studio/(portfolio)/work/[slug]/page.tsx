@@ -59,14 +59,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
   return (
     <article className="mx-auto w-full max-w-[var(--content-max)] px-[var(--page-pad)] pb-20 pt-6">
       <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-[var(--ink-muted)]">
-        <Link href="/work" className="transition-colors hover:text-[var(--ink)]">
+        <Link href="/studio/work" className="transition-colors hover:text-[var(--ink)]">
           ← All work
         </Link>
         {parent ? (
           <>
             <span aria-hidden>/</span>
             <Link
-              href={`/work/${parent.slug}`}
+              href={`/studio/work/${parent.slug}`}
               className="transition-colors hover:text-[var(--ink)]"
             >
               {parent.title}
@@ -248,7 +248,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
             {children.map((child) => (
               <li key={child.slug}>
                 <Link
-                  href={`/work/${child.slug}`}
+                  href={`/studio/work/${child.slug}`}
                   className="group flex h-full flex-col rounded-[1.5rem] border-[2.5px] border-[var(--ink)] bg-[var(--bg-elevated)] p-5 shadow-[var(--shadow-soft)] transition-transform hover:-translate-y-1"
                 >
                   <span
@@ -349,7 +349,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 {siblings.map((sib) => (
                   <li key={sib.slug}>
                     <Link
-                      href={`/work/${sib.slug}`}
+                      href={`/studio/work/${sib.slug}`}
                       className="font-medium text-[var(--ink)] hover:underline"
                     >
                       {sib.title}
@@ -369,7 +369,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
         >
           {prev ? (
             <Link
-              href={`/work/${prev.slug}`}
+              href={`/studio/work/${prev.slug}`}
               className="rounded-[1.25rem] border-[2px] border-[var(--ink)] bg-white/70 px-5 py-4 transition-transform hover:-translate-y-0.5"
             >
               <span className="block text-xs uppercase tracking-wider text-[var(--ink-soft)]">
@@ -384,7 +384,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           )}
           {next ? (
             <Link
-              href={`/work/${next.slug}`}
+              href={`/studio/work/${next.slug}`}
               className="rounded-[1.25rem] border-[2px] border-[var(--ink)] bg-white/70 px-5 py-4 text-right transition-transform hover:-translate-y-0.5"
             >
               <span className="block text-xs uppercase tracking-wider text-[var(--ink-soft)]">

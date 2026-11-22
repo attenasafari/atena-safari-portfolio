@@ -12,10 +12,10 @@ export function Footer() {
           </span>
         </p>
         <div className="flex flex-wrap gap-4 text-sm text-[var(--ink-muted)]">
-          <Link href="/work" className="hover:text-[var(--ink)]">
+          <Link href="/studio/work" className="hover:text-[var(--ink)]">
             Work
           </Link>
-          <Link href="/contact" className="hover:text-[var(--ink)]">
+          <Link href="/studio/contact" className="hover:text-[var(--ink)]">
             Contact
           </Link>
           <a

@@ -29,14 +29,14 @@ const figtree = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Atena Safari — Product Design Lead",
-    template: "%s · Atena Safari",
+    default: "Quiz Club",
+    template: "%s · Quiz Club",
   },
   description:
-    "Case-study portfolio of Atena Safari, Product Design Lead — marketplaces, fintech, design systems, and data-driven UX.",
+    "Quiz Club is a short, playful quiz game — daily tables, five-question rounds, and challenges you can settle with friends.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
