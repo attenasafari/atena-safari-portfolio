@@ -10,7 +10,7 @@ export function Nav() {
   return (
     <header className="relative z-20 mx-auto flex w-full max-w-[var(--content-max)] items-center justify-between gap-4 px-[var(--page-pad)] py-5">
       <Link
-        href="/studio"
+        href="/"
         className="font-[family-name:var(--font-fredoka)] text-lg font-semibold tracking-tight text-[var(--ink)] transition-transform duration-200 hover:-translate-y-0.5"
       >
         {site.name}
@@ -20,8 +20,8 @@ export function Nav() {
           const path = pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
           const href = item.href.length > 1 ? item.href.replace(/\/$/, "") : item.href;
           const active =
-            href === "/studio"
-              ? path === "/studio"
+            href === "/"
+              ? path === "/"
               : path === href || path.startsWith(`${href}/`);
           return (
             <Link

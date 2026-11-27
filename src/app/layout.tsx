@@ -29,11 +29,11 @@ const figtree = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Quiz Club",
-    template: "%s · Quiz Club",
+    default: "Atena Safari — Product Design Lead",
+    template: "%s · Atena Safari",
   },
   description:
-    "Quiz Club is a short, playful quiz game — daily tables, five-question rounds, and challenges you can settle with friends.",
+    "Case-study portfolio of Atena Safari, Product Design Lead — marketplaces, fintech, design systems, and data-driven UX.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
