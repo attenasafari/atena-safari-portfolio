@@ -47,11 +47,11 @@ export function Hero() {
         <p className="sr-only">Portfolio</p>
 
         <div className="mt-8 flex w-full justify-center">
-          <KeycapCta href="/studio/work" label="See the work" />
+          <KeycapCta href="/work" label="See the work" />
         </div>
         <div className="mt-8 flex w-full justify-center">
           <FloatingWidget
-            href="/studio/about"
+            href="/about"
             title="About Atena"
             meta="10 yrs · Lead"
             accent="var(--accent-pink-soft)"
